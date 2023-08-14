@@ -1,0 +1,11 @@
+1,ISBN 978-1000,Re:Creators,Anime,10,100
+2,ISBN 978-1001,Iroduku Sekai no Ashita kara,Anime,10,100
+3,ISBN 978-1002,Carole & Tuesday,Anime,15,100
+4,ISBN 978-1003,Trigun Stampede,Anime,12,100
+5,ISBN 978-1004,Deca-Dence,Anime,10,100
+6,ISBN 978-1005,Revisions,Anime,10,100
+7,ISBN 978-1006,B: The Beginning,Anime,15,100
+8,ISBN 978-1007,The Irregular At Magic High School,Anime,20,100
+9,ISBN 978-1008,Ingress,Anime,10,100
+10,ISBN 978-1009,Sonny Boy,Anime,12,100
+11,ISBN 978-1010,86－Eighty Six－,Anime,20,100
