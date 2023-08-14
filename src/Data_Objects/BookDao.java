@@ -5,6 +5,7 @@
  */
 package Data_Objects;
 
+import Input.Inputter;
 import Model.Book;
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,7 +17,7 @@ public class BookDao implements IBookDao {
 
     private List<Book> bookList = null;
     Scanner sc = new Scanner(System.in);
-    
+
     public BookDao(String path1) throws Exception {
         bookList = loadBooks(path1);
     }
@@ -32,7 +33,6 @@ public class BookDao implements IBookDao {
                 Book book = null;
                 if (!thisLine.trim().isEmpty()) {
                     String split[] = thisLine.split(",");
-//                    String id = split[1].trim();
                     String name = split[2].trim();
                     String type = split[3].trim();
                     double price = Double.parseDouble(split[4].trim());
@@ -49,25 +49,16 @@ public class BookDao implements IBookDao {
         } catch (Exception ex) {
             throw ex;
         }
-//        for (Book obj1 : bookList) {
-//            System.out.println(obj1);
-//            System.out.println("");
-//        }
         return bookList;
     }
-    
+
     @Override
     public List<Book> addBook() {
-        // Nên thêm chức năng nhập vào mỗi function
-        System.out.print("Enter the book name: ");
-        String name = sc.nextLine();
-        System.out.print("Enter the type book: ");
-        String type = sc.nextLine();
-        System.out.print("Enter the price: ");
-        double price = sc.nextDouble();
-        System.out.print("Enter the quantity: ");
-        int quantity = sc.nextInt();
-        sc.skip("\n");
+        // Nên thêm chức năng nhập vào mỗi function (Đã thêm)
+        String name = Inputter.inputNonBlankStr("Enter the book name: ");
+        String type = Inputter.inputNonBlankStr("Enter the type book: ");
+        double price = Inputter.inputDouble("Enter the price: ");
+        int quantity = Inputter.inputInt("Enter the quantity: ");
 
         Book book = new Book(price, name, type, quantity);
         bookList.add(book);
@@ -76,10 +67,8 @@ public class BookDao implements IBookDao {
 
     @Override
     public List<Book> removeBook() {
-        System.out.print("Enter the ID book: ");
-        String id = sc.nextLine();
+        String id = Inputter.inputNonBlankStr("Enter the ID book: ");
         int i = 0;
-        // Nên tạo clone cho object Book hoặc new Book(bookList)
         for (Book obj : bookList) {
             if (obj.getIdBook().equals(id)) {
                 bookList.remove(i);
@@ -101,7 +90,7 @@ public class BookDao implements IBookDao {
         });
         return sortingList;
     }
-    
+
     @Override
     public List<Book> sortByName() {
         List<Book> sortingList = new ArrayList<>(bookList);

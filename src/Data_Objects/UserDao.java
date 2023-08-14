@@ -5,6 +5,7 @@
  */
 package Data_Objects;
 
+import Input.Inputter;
 import Model.User;
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,7 +21,7 @@ public class UserDao implements IUserDao {
     public UserDao(String path2) throws Exception {
         userList = loadUsers(path2);
     }
-    
+
     private List<User> loadUsers(String path2) throws Exception {
         try {
             File userInfo = new File(path2);
@@ -52,21 +53,15 @@ public class UserDao implements IUserDao {
         } catch (Exception ex) {
             throw ex;
         }
-//        for (User obj1 : userList) {
-//            System.out.println(obj1);
-//            System.out.println("");
-//        }
         return userList;
     }
-    
+
     @Override
     public boolean checkUser() {
         try {
             System.out.println("\nLogin System");
-            System.out.print("User Name: ");
-            String userName = sc.nextLine();
-            System.out.print("Password: ");
-            String password = sc.nextLine();
+            String userName = Inputter.inputNonBlankStr("User Name: ");
+            String password = Inputter.inputNonBlankStr("Password: ");
             for (User obj1 : userList) {
                 if (userName.equals(obj1.getUserName()) && password.equals(obj1.getPassword())) {
                     return true;
@@ -78,5 +73,4 @@ public class UserDao implements IUserDao {
         System.out.println("Username or Password is invalid");
         return false;
     }
-    
 }

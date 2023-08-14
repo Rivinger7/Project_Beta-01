@@ -14,15 +14,13 @@ public class Bookstore implements IBookstore {
 
     IBookDao book;
     IUserDao user;
-    
     Scanner sc = new Scanner(System.in);
-//    private int fID = 1;
 
     public Bookstore(String path1, String path2) throws Exception {
         book = new BookDao(path1);
         user = new UserDao(path2);
     }
-    
+
     @Override
     public <E> boolean writeFile(String path, List<E> list) throws Exception {
         int fID = 1;

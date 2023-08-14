@@ -10,5 +10,6 @@ package Data_Objects;
  * @author Admins
  */
 public interface IUserDao {
+
     public boolean checkUser();
 }
