@@ -10,6 +10,7 @@ import Model.User;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.*;
 
@@ -57,20 +58,82 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public boolean checkUser() {
+    public boolean login(String path) throws Exception {
         try {
-            System.out.println("\nLogin System");
-            String userName = Inputter.inputNonBlankStr("User Name: ");
-            String password = Inputter.inputNonBlankStr("Password: ");
-            for (User obj1 : userList) {
-                if (userName.equals(obj1.getUserName()) && password.equals(obj1.getPassword())) {
-                    return true;
+            int i = 0;
+            boolean check = false;
+            while (!check) {
+                System.out.println("\nLogin System");
+                String userName = Inputter.inputNonBlankStr("User Name: ");
+                String password = Inputter.inputNonBlankStr("Password: ");
+                for (User obj1 : userList) {
+                    if (userName.equals(obj1.getUserName()) && password.equals(obj1.getPassword())) {
+                        return true;
+                    }
                 }
+                if (i >= 0 && !check) {
+                    System.out.println("Username or Password is invalid");
+                    // Register
+                    // False == register failed or not register yet
+                    String registerAccount = Inputter.inputNonBlankStr("Do you want to"
+                            + " register an Account? "
+                            + "(Yes / No): ");
+                    if (registerAccount.equalsIgnoreCase("Yes")) {
+                        boolean checkStatus = false;
+                        while (!checkStatus) {
+                            checkStatus = register(path);
+                            if (!checkStatus) {
+                                String temp = Inputter.inputNonBlankStr("Do you want to register again?"
+                                        + " (Yes / No): ");
+                                if (temp.equalsIgnoreCase("No")) {
+                                    checkStatus = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                ++i;
             }
         } catch (Exception ex) {
             throw ex;
         }
         System.out.println("Username or Password is invalid");
         return false;
+    }
+
+    @Override
+    public boolean register(String path) throws Exception {
+        System.out.println("\nRegister System");
+        String userName = Inputter.inputNonBlankStr("Username: ");
+        String password = Inputter.inputNonBlankStr("Password: ");
+        for (User obj : userList) {
+            if (obj.getUserName().equals(userName) && obj.getPassword().equals(password)) {
+                System.out.println("Registeration failed");
+                return false;
+            }
+        }
+        User user = new User(userName, password);
+        userList.add(user);
+        return writeFileUser(path, userList);
+    }
+
+    @Override
+    public <E> boolean writeFileUser(String path, List<E> list) throws Exception {
+        int fID = 1;
+        try {
+            FileWriter writer = new FileWriter(path);
+            for (E userObj : list) {
+                writer.write(fID++ + "," + userObj.toString());
+                writer.write("\n");
+            }
+            writer.close();
+//            System.out.println("File " + path + " has been written successfully.");
+            System.out.println("Username has been registered successfully.");
+            return true;
+        } catch (Exception ex) {
+            System.out.println("An error occurred while writing to the file: " + path);
+            ex.printStackTrace();
+            return false;
+        }
     }
 }

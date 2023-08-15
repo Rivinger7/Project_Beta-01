@@ -6,8 +6,8 @@
 package View;
 
 import java.util.*;
-import Model.*;
 import Controller.Bookstore;
+import Input.Inputter;
 
 public class Main {
 
@@ -30,20 +30,26 @@ public class Main {
         int choice = 0;
         Bookstore bookstore = null;
         bookstore = new Bookstore(fileBook, fileUser);
-        boolean checkUser = bookstore.checkUser();
 
         do {
-            while (!checkUser) {
-                checkUser = bookstore.checkUser();
+            String selection = Inputter.inputNonBlankStr("Login (1) or Register (2): ");
+            if(selection.equals("1")) {
+                boolean checkLogin = bookstore.login(fileUser);
+            } else if(selection.equals("2")){
+                boolean checkRegister = bookstore.register(fileUser);
+                if(checkRegister) {
+                    bookstore.login(fileUser);
+                }
+                
             }
             System.out.println("\nBook Management Program");
             choice = Menu.getChoice(options);
             switch (choice) {
                 case 1:
-                    bookstore.writeFile(fileBook, bookstore.addBook());
+                    bookstore.writeFileBook(fileBook, bookstore.addBook());
                     break;
                 case 2:
-                    bookstore.writeFile(fileBook, bookstore.removeBook());
+                    bookstore.writeFileBook(fileBook, bookstore.removeBook());
                     break;
                 default:
                     System.out.println("Good bye!");

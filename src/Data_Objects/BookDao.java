@@ -10,6 +10,7 @@ import Model.Book;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.*;
 
@@ -128,5 +129,25 @@ public class BookDao implements IBookDao {
 
         });
         return sortingList;
+    }
+    
+    @Override
+    public <E> boolean writeFileBook(String path, List<E> list) throws Exception {
+        int fID = 1;
+        try {
+            FileWriter writer = new FileWriter(path);
+            for (E bookObj : list) {
+                writer.write(fID++ + "," + bookObj.toString());
+                writer.write("\n");
+            }
+            writer.close();
+            System.out.println("File " + path + " has been written successfully.");
+            return true;
+        } catch (Exception ex) {
+            System.out.println("An error occurred while writing to the file: " + path);
+            ex.printStackTrace();
+            return false;
+        }
+        // Add thêm sách vào file.txt thì cần kết hợp thêm kỹ thuật viết file (WirteFile)
     }
 }

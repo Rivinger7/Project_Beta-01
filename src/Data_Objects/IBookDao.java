@@ -21,4 +21,6 @@ public interface IBookDao {
     public List<Book> sortByType();
 
     public List<Book> sortByQuantity();
+
+    public <E> boolean writeFileBook(String path, List<E> list) throws Exception;
 }

@@ -22,28 +22,23 @@ public class Bookstore implements IBookstore {
     }
 
     @Override
-    public <E> boolean writeFile(String path, List<E> list) throws Exception {
-        int fID = 1;
-        try {
-            FileWriter writer = new FileWriter(path);
-            for (E bookObj : list) {
-                writer.write(fID++ + "," + bookObj.toString());
-                writer.write("\n");
-            }
-            writer.close();
-            System.out.println("File " + path + " has been written successfully.");
-            return true;
-        } catch (Exception ex) {
-            System.out.println("An error occurred while writing to the file: " + path);
-            ex.printStackTrace();
-            return false;
-        }
-        // Add thêm sách vào file.txt thì cần kết hợp thêm kỹ thuật viết file (WirteFile)
+    public <E> boolean writeFileBook(String path, List<E> list) throws Exception {
+        return book.writeFileBook(path, list);
+    }
+    
+    @Override
+    public <E> boolean writeFileUser(String path, List<E> list) throws Exception {
+        return user.writeFileUser(path, list);
     }
 
     @Override
-    public boolean checkUser() {
-        return user.checkUser();
+    public boolean login(String path) throws Exception {
+        return user.login(path);
+    }
+    
+    @Override
+    public boolean register(String path) throws Exception {
+        return user.register(path);
     }
 
     @Override

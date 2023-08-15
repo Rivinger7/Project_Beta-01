@@ -10,7 +10,9 @@ import java.util.*;
 
 public interface IBookstore {
 
-    public boolean checkUser();
+    public boolean login(String path) throws Exception;
+    
+    public boolean register(String path) throws Exception;
 
     public List<Book> addBook();
 
@@ -22,5 +24,7 @@ public interface IBookstore {
 
     public List<Book> sortByQuantity();
 
-    public <E> boolean writeFile(String path, List<E> list) throws Exception;
+    public <E> boolean writeFileBook(String path, List<E> list) throws Exception;
+    
+    public <E> boolean writeFileUser(String path, List<E> list) throws Exception;
 }

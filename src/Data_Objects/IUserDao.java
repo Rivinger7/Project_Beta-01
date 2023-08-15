@@ -5,11 +5,17 @@
  */
 package Data_Objects;
 
+import java.util.List;
+
 /**
  *
  * @author Admins
  */
 public interface IUserDao {
 
-    public boolean checkUser();
+    public boolean login(String path) throws Exception;
+    
+    public boolean register(String path) throws Exception;
+    
+    public <E> boolean writeFileUser(String path, List<E> list) throws Exception;
 }
