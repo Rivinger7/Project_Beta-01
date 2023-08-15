@@ -28,6 +28,10 @@ public class Book {
         this.quantity = quantity;
     }
 
+    public static int getoID() {
+        return oID;
+    }
+    
     public String getIdBook() {
         return idBook;
     }

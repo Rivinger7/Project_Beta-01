@@ -57,15 +57,24 @@ public class BookDao implements IBookDao {
     public List<Book> addBook() {
         // Nên thêm chức năng nhập vào mỗi function (Đã thêm)
         String name = Inputter.inputNonBlankStr("Enter the book name: ");
-        String type = Inputter.inputNonBlankStr("Enter the type book: ");
+        String type = Inputter.inputNonBlankStr("Enter the book type: ");
         double price = Inputter.inputDouble("Enter the price: ");
         int quantity = Inputter.inputInt("Enter the quantity: ");
-
+        
+        for (Book obj : bookList) {
+            if (obj.getBookName().equals(name)) {
+                System.out.println("The book name already existed");
+                // checking adding function
+                addBook();
+                return bookList;
+            }
+        }
         Book book = new Book(price, name, type, quantity);
         bookList.add(book);
+        System.out.println("The book has been added successfully.");
         return bookList;
     }
-
+    
     @Override
     public List<Book> removeBook() {
         String id = Inputter.inputNonBlankStr("Enter the ID book: ");
@@ -130,7 +139,7 @@ public class BookDao implements IBookDao {
         });
         return sortingList;
     }
-    
+
     @Override
     public <E> boolean writeFileBook(String path, List<E> list) throws Exception {
         int fID = 1;
@@ -141,7 +150,8 @@ public class BookDao implements IBookDao {
                 writer.write("\n");
             }
             writer.close();
-            System.out.println("File " + path + " has been written successfully.");
+//            System.out.println("File " + path + " has been written successfully.");
+//            System.out.println("The Book has been added successfully.");
             return true;
         } catch (Exception ex) {
             System.out.println("An error occurred while writing to the file: " + path);

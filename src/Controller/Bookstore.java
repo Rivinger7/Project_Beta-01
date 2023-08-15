@@ -7,7 +7,6 @@ package Controller;
 
 import java.util.*;
 import Model.Book;
-import java.io.FileWriter;
 import Data_Objects.*;
 
 public class Bookstore implements IBookstore {
@@ -43,12 +42,13 @@ public class Bookstore implements IBookstore {
 
     @Override
     public List<Book> addBook() {
-        // Nếu tên sách bị trùng thì phải throw Exception (Cần xử lý)
+        // Nếu tên sách bị trùng thì phải throw Exception (Đã xử lý)
         return book.addBook();
     }
 
     @Override
     public List<Book> removeBook() {
+        // Cần xử lý ID tăng lên liên tục thay vì giảm dần khi xóa ở giữa (Cần xử lý)
         return book.removeBook();
     }
 

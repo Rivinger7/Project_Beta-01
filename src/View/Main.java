@@ -31,17 +31,17 @@ public class Main {
         Bookstore bookstore = null;
         bookstore = new Bookstore(fileBook, fileUser);
 
-        do {
-            String selection = Inputter.inputNonBlankStr("Login (1) or Register (2): ");
-            if(selection.equals("1")) {
-                boolean checkLogin = bookstore.login(fileUser);
-            } else if(selection.equals("2")){
-                boolean checkRegister = bookstore.register(fileUser);
-                if(checkRegister) {
-                    bookstore.login(fileUser);
-                }
-                
+        String selection = Inputter.inputNonBlankStr("\nLogin (1) or Register (2): ");
+        if (selection.equals("1")) {
+            boolean checkLogin = bookstore.login(fileUser);
+        } else if (selection.equals("2")) {
+            boolean checkRegister = bookstore.register(fileUser);
+            if (checkRegister) {
+                bookstore.login(fileUser);
             }
+        }
+
+        do {
             System.out.println("\nBook Management Program");
             choice = Menu.getChoice(options);
             switch (choice) {

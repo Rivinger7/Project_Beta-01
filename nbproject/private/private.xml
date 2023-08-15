@@ -9,9 +9,11 @@
             <file>file:/F:/java_code/BookManagement/src/Data_Objects/UserDao.java</file>
             <file>file:/F:/java_code/BookManagement/src/Data_Objects/BookDao.java</file>
             <file>file:/F:/java_code/BookManagement/src/Input/ListOfUsers.txt</file>
+            <file>file:/F:/java_code/BookManagement/src/Model/Book.java</file>
             <file>file:/F:/java_code/BookManagement/src/Controller/IBookstore.java</file>
             <file>file:/F:/java_code/BookManagement/src/Input/Inputter.java</file>
             <file>file:/F:/java_code/BookManagement/src/View/Main.java</file>
+            <file>file:/F:/java_code/BookManagement/src/Input/ListOfBooks.txt</file>
             <file>file:/F:/java_code/BookManagement/src/Data_Objects/IBookDao.java</file>
         </group>
     </open-files>
