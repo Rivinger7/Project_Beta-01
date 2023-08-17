@@ -122,9 +122,14 @@ public class UserDao implements IUserDao {
         int fID = 1;
         try {
             FileWriter writer = new FileWriter(path);
+            boolean isFirstLine = true;
             for (E userObj : list) {
+                if(!isFirstLine) {
+                    writer.write("\n");
+                } else {
+                    isFirstLine = false;
+                }
                 writer.write(fID++ + "," + userObj.toString());
-                writer.write("\n");
             }
             writer.close();
 //            System.out.println("File " + path + " has been written successfully.");
