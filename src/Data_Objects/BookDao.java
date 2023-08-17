@@ -61,6 +61,7 @@ public class BookDao implements IBookDao {
     public List<Book> addBook() {
         boolean checkStatus = false;
         while (!checkStatus) {
+            System.out.println("");
             String name = Inputter.inputNonBlankStr("Enter the book name: ");
             String type = Inputter.inputNonBlankStr("Enter the book type: ");
             double price = Inputter.inputDouble("Enter the price: ");

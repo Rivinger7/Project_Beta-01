@@ -14,14 +14,19 @@ public class Bookstore implements IBookstore {
     IBookDao book;
     IUserDao user;
     Scanner sc = new Scanner(System.in);
+    
+    // Nên để fileBook và fileUser thay vì để ở hàm main
+    // Nếu vậy thì phải build lại constructor
 
     public Bookstore(String path1, String path2) throws Exception {
         book = new BookDao(path1);
         user = new UserDao(path2);
     }
 
-    // Nên thiết kế thêm 1 method getBookList
+    // Nên thiết kế thêm 1 method getBookList (Đã thiết kế)
     // Thay vì để method removeBook() là một danh sách (boolean hoặc void)
+    // Nếu làm vậy thì phải chỉnh cả addBook() method
+    // Gộp writeFile vào addBook() và removeBook() method, và return writeFile
     
     @Override
     public <E> boolean writeFileBook(String path, List<E> list) throws Exception {

@@ -30,6 +30,9 @@ public class Main {
         int choice = 0;
         Bookstore bookstore = null;
         bookstore = new Bookstore(fileBook, fileUser);
+        
+        // Login và Register function nên để ngắn gọn thay vì thiết kế trực tiếp ở đây
+        // Nên thiết kế bên bookstore class
 
         String selection = Inputter.inputNonBlankStr("\nLogin (1) or Register (2): ");
         if (selection.equals("1")) {
