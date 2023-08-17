@@ -29,7 +29,7 @@ public class Book {
     }
 
     public static int getoID() {
-        return oID;
+        return oID = 1000;
     }
     
     public String getIdBook() {

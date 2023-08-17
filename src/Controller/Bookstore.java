@@ -20,6 +20,9 @@ public class Bookstore implements IBookstore {
         user = new UserDao(path2);
     }
 
+    // Nên thiết kế thêm 1 method getBookList
+    // Thay vì để method removeBook() là một danh sách (boolean hoặc void)
+    
     @Override
     public <E> boolean writeFileBook(String path, List<E> list) throws Exception {
         return book.writeFileBook(path, list);
@@ -49,6 +52,7 @@ public class Bookstore implements IBookstore {
     @Override
     public List<Book> removeBook() {
         // Cần xử lý ID tăng lên liên tục thay vì giảm dần khi xóa ở giữa (Cần xử lý)
+        // Sau khi xử lý vấn đề trên thì cần phải sort nó 1 lần nữa theo thứ tự ID
         return book.removeBook();
     }
 

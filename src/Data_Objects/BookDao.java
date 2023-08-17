@@ -53,28 +53,40 @@ public class BookDao implements IBookDao {
         return bookList;
     }
 
-    @Override
-    public List<Book> addBook() {
-        // Nên thêm chức năng nhập vào mỗi function (Đã thêm)
-        String name = Inputter.inputNonBlankStr("Enter the book name: ");
-        String type = Inputter.inputNonBlankStr("Enter the book type: ");
-        double price = Inputter.inputDouble("Enter the price: ");
-        int quantity = Inputter.inputInt("Enter the quantity: ");
-        
-        for (Book obj : bookList) {
-            if (obj.getBookName().equals(name)) {
-                System.out.println("The book name already existed");
-                // checking adding function
-                addBook();
-                return bookList;
-            }
-        }
-        Book book = new Book(price, name, type, quantity);
-        bookList.add(book);
-        System.out.println("The book has been added successfully.");
+    public List<Book> getBookList() {
         return bookList;
     }
     
+    @Override
+    public List<Book> addBook() {
+        boolean checkStatus = false;
+        while (!checkStatus) {
+            String name = Inputter.inputNonBlankStr("Enter the book name: ");
+            String type = Inputter.inputNonBlankStr("Enter the book type: ");
+            double price = Inputter.inputDouble("Enter the price: ");
+            int quantity = Inputter.inputInt("Enter the quantity: ");
+
+            if (isBookNameExist(name)) {
+                System.out.println("The book name already exists.");
+            } else {
+                Book book = new Book(price, name, type, quantity);
+                bookList.add(book);
+                System.out.println("The book has been added successfully.");
+                checkStatus = true;
+            }
+        }
+        return bookList;
+    }
+
+    private boolean isBookNameExist(String name) {
+        for (Book obj : bookList) {
+            if (obj.getBookName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public List<Book> removeBook() {
         String id = Inputter.inputNonBlankStr("Enter the ID book: ");
