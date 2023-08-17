@@ -56,27 +56,24 @@ public class BookDao implements IBookDao {
     public List<Book> getBookList() {
         return bookList;
     }
-    
-    @Override
-    public List<Book> addBook() {
-        boolean checkStatus = false;
-        while (!checkStatus) {
-            System.out.println("");
-            String name = Inputter.inputNonBlankStr("Enter the book name: ");
-            String type = Inputter.inputNonBlankStr("Enter the book type: ");
-            double price = Inputter.inputDouble("Enter the price: ");
-            int quantity = Inputter.inputInt("Enter the quantity: ");
 
-            if (isBookNameExist(name)) {
-                System.out.println("The book name already exists.");
-            } else {
-                Book book = new Book(price, name, type, quantity);
-                bookList.add(book);
-                System.out.println("The book has been added successfully.");
-                checkStatus = true;
-            }
+    @Override
+    public boolean addBook(String path) throws Exception {
+        System.out.println("");
+        String name = Inputter.inputNonBlankStr("Enter the book name: ");
+        String type = Inputter.inputNonBlankStr("Enter the book type: ");
+        double price = Inputter.inputDouble("Enter the price: ");
+        int quantity = Inputter.inputInt("Enter the quantity: ");
+
+        if (isBookNameExist(name)) {
+//                System.out.println("The book name already exists.");
+            return false;
         }
-        return bookList;
+        Book book = new Book(price, name, type, quantity);
+        bookList.add(book);
+//            System.out.println("The book has been added successfully.");
+        // Nếu không lưu được vào database cũng đồng nghĩa với việc addBook() -> return False
+        return writeFileBook(path, bookList);
     }
 
     private boolean isBookNameExist(String name) {
@@ -89,17 +86,17 @@ public class BookDao implements IBookDao {
     }
 
     @Override
-    public List<Book> removeBook() {
+    public boolean removeBook(String path) throws Exception {
         String id = Inputter.inputNonBlankStr("Enter the ID book: ");
         int i = 0;
         for (Book obj : bookList) {
             if (obj.getIdBook().equals(id)) {
                 bookList.remove(i);
-                return bookList;
+                return writeFileBook(path, bookList);
             }
             ++i;
         }
-        return bookList;
+        return false;
     }
 
     @Override
@@ -156,11 +153,16 @@ public class BookDao implements IBookDao {
     @Override
     public <E> boolean writeFileBook(String path, List<E> list) throws Exception {
         int fID = 1;
+        boolean isFirstLine = true;
         try {
             FileWriter writer = new FileWriter(path);
             for (E bookObj : list) {
+                if(!isFirstLine) {
+                    writer.write("\n");
+                } else {
+                    isFirstLine = false;
+                }
                 writer.write(fID++ + "," + bookObj.toString());
-                writer.write("\n");
             }
             writer.close();
 //            System.out.println("File " + path + " has been written successfully.");

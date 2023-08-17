@@ -10,13 +10,11 @@ import java.util.*;
 
 public interface IBookstore {
 
-    public boolean login(String path) throws Exception;
-    
-    public boolean register(String path) throws Exception;
+    public void loginSystem() throws Exception;
 
-    public List<Book> addBook();
+    public void addBook() throws Exception;
 
-    public List<Book> removeBook();
+    public void removeBook() throws Exception;
 
     public List<Book> sortByPrice();
 

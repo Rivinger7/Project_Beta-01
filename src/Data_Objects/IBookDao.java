@@ -10,9 +10,9 @@ import java.util.*;
 
 public interface IBookDao {
 
-    public List<Book> addBook();
+    public boolean addBook(String path) throws Exception;
     
-    public List<Book> removeBook();
+    public boolean removeBook(String path) throws Exception;
 
     public List<Book> sortByPrice();
 
