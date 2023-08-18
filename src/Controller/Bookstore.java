@@ -100,8 +100,9 @@ public class Bookstore implements IBookstore {
 
     @Override
     public void removeBook() throws Exception {
-        // Cần xử lý ID tăng lên liên tục thay vì giảm dần khi xóa ở giữa (Cần xử lý)
-        // Sau khi xử lý vấn đề trên thì cần phải sort nó 1 lần nữa theo thứ tự ID
+        // Cần xử lý ID tăng lên liên tục thay vì giảm dần khi xóa ở giữa (Đã xử lý)
+        // Sau khi xử lý vấn đề trên thì cần phải sort nó 1 lần nữa theo thứ tự ID (Không cần thiết)
+        // Đã xử lý các tasks trên
         if (book.removeBook(fileBook)) {
             System.out.println("The book has been deleted from the database");
         } else {

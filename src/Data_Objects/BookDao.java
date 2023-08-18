@@ -92,11 +92,31 @@ public class BookDao implements IBookDao {
         for (Book obj : bookList) {
             if (obj.getIdBook().equals(id)) {
                 bookList.remove(i);
+                // Solution 1: remove(i) thì sẽ reset lại từ đó (index) (Không hiệu quả)
+                // Solution 2: writeFile() lại bằng cách reset lại static oID
+                // Solution 3: Tìm ID có khoảng cách idOne - idTwo > 1 sau đó reset từ đó
+                // Đã thêm solution 3
+                setID();
                 return writeFileBook(path, bookList);
             }
             ++i;
         }
         return false;
+    }
+    
+    private void setID() {
+        for(int i=0;i<bookList.size() - 1;++i) {
+            if((Integer.parseInt(bookList.get(i+1).getIdBook())
+                    - Integer.parseInt(bookList.get(i).getIdBook())) > 1) {
+                System.out.println(bookList.get(i).getIdBook());
+                int temp = Integer.parseInt(bookList.get(i).getIdBook());
+                for(int j=i;j<bookList.size();++j) {
+                    bookList.get(j).setIdBook(String.valueOf(temp++));
+                }
+                Book.setoID(temp);
+                return;
+            }
+        }
     }
 
     @Override

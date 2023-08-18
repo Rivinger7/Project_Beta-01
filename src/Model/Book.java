@@ -52,6 +52,10 @@ public class Book {
         return quantity;
     }
 
+    public static void setoID(int oID) {
+        Book.oID = oID;
+    }
+    
     public void setIdBook(String idBook) {
         this.idBook = idBook;
     }
