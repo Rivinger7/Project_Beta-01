@@ -84,14 +84,16 @@ public class Bookstore implements IBookstore {
     public void addBook() throws Exception {
         // Nếu tên sách bị trùng thì phải throw Exception (Đã xử lý)
         // Nên dùng Exception
-        boolean check = false;
-        while (!check) {
-            if (book.addBook(fileBook)) {
-                System.out.println("The book has been added successfully.");
-                check = true;
-            } else {
-                System.out.println("The book name already exists.");
-                // Nên thêm một Exception nữa
+        while (true) {
+            try {
+                if (book.addBook(fileBook)) {
+                    System.out.println("The book has been added successfully.");
+                    return;
+                }
+                // Nên thêm một Exception nữa (Đã thêm)
+                throw new Exception("The book name already exists.");
+            } catch (Exception ex) {
+                System.out.println(ex);
             }
         }
     }

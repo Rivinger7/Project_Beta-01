@@ -26,6 +26,9 @@ public class Main {
         Bookstore bookstore = null;
         bookstore = new Bookstore();
         
+        // Hàm main nên là hàm giao diện cho người dùng
+        // Không nên thiết kế bên hàm main
+        
         bookstore.loginSystem();
         do {
             System.out.println("\nBook Management Program");
