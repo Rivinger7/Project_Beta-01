@@ -89,11 +89,18 @@ public class Bookstore implements IBookstore {
                 if (book.addBook(fileBook)) {
                     System.out.println("The book has been added successfully.");
                     return;
+                } else {
+                    throw new Exception("The book name already exists.");
+                    // Nên hỏi user có muốn nhập lại không
+                    // Throwing an Exception then handle the Exception
                 }
-                // Nên thêm một Exception nữa (Đã thêm)
-                throw new Exception("The book name already exists.");
             } catch (Exception ex) {
                 System.out.println(ex);
+                String selection = Inputter.inputNonBlankStr("Do you want to enter again?"
+                        + " (Yes / No): ");
+                if (selection.trim().equalsIgnoreCase("No")) {
+                    return;
+                }
             }
         }
     }
@@ -103,10 +110,24 @@ public class Bookstore implements IBookstore {
         // Cần xử lý ID tăng lên liên tục thay vì giảm dần khi xóa ở giữa (Đã xử lý)
         // Sau khi xử lý vấn đề trên thì cần phải sort nó 1 lần nữa theo thứ tự ID (Không cần thiết)
         // Đã xử lý các tasks trên
-        if (book.removeBook(fileBook)) {
-            System.out.println("The book has been deleted from the database");
-        } else {
-            System.out.println("Not found the book ID");
+        while (true) {
+            try {
+                if (book.removeBook(fileBook)) {
+                    System.out.println("The book has been deleted from the database");
+                    return;
+                } else {
+                    // Nên hỏi user có muốn nhập lại không
+                    // Throwing an Exception then handle the Exception
+                    throw new Exception("Not found the book ID");
+                }
+            } catch (Exception ex) {
+                System.out.println(ex);
+                String selection = Inputter.inputNonBlankStr("Do you want to enter again?"
+                        + " (Yes / No): ");
+                if (selection.trim().equalsIgnoreCase("No")) {
+                    return;
+                }
+            }
         }
     }
 

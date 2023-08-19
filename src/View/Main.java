@@ -27,7 +27,7 @@ public class Main {
         bookstore = new Bookstore();
         
         // Hàm main nên là hàm giao diện cho người dùng
-        // Không nên thiết kế bên hàm main
+        // Không nên thiết kế hàm xử lý bên hàm main
         
         bookstore.loginSystem();
         do {

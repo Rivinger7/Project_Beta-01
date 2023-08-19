@@ -87,7 +87,7 @@ public class BookDao implements IBookDao {
 
     @Override
     public boolean removeBook(String path) throws Exception {
-        String id = Inputter.inputNonBlankStr("Enter the ID book: ");
+        String id = Inputter.inputNonBlankStr("\nEnter the ID book: ");
         int i = 0;
         for (Book obj : bookList) {
             if (obj.getIdBook().equals(id)) {
@@ -108,7 +108,6 @@ public class BookDao implements IBookDao {
         for(int i=0;i<bookList.size() - 1;++i) {
             if((Integer.parseInt(bookList.get(i+1).getIdBook())
                     - Integer.parseInt(bookList.get(i).getIdBook())) > 1) {
-                System.out.println(bookList.get(i).getIdBook());
                 int temp = Integer.parseInt(bookList.get(i).getIdBook());
                 for(int j=i;j<bookList.size();++j) {
                     bookList.get(j).setIdBook(String.valueOf(temp++));
