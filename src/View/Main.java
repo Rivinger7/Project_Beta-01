@@ -16,6 +16,7 @@ public class Main {
         String options[] = {
             "Add a new book to the storage",
             "Remove a book in the storage",
+            "Add to cart",
             "Create an invoice",
             "Sort the invoice list by the customer name",
             "Search the invoice list",
@@ -39,6 +40,12 @@ public class Main {
                     break;
                 case 2:
                     bookstore.removeBook();
+                    break;
+                case 3:
+                    /* Có nên gộp hết cả 3 vào method addToCart bên bookstore ko? <DONE>
+                       Thêm hiển thị danh sách cốnle ra màn hình cho người dùng nhập ID <NOT YET>
+                    */
+                    bookstore.addToCart();  
                     break;
                 default:
                     System.out.println("Good bye!");

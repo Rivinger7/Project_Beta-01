@@ -10,6 +10,8 @@ import Model.Book;
 import Data_Objects.*;
 import Exception.NumberOutOfRangeException;
 import Input.Inputter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Bookstore implements IBookstore {
 
@@ -19,6 +21,7 @@ public class Bookstore implements IBookstore {
 
     final String fileBook = "src\\Input\\ListOfBooks.txt";
     final String fileUser = "src\\Input\\ListOfUsers.txt";
+    final String fileBackUp = "src\\Output\\BackUpList.txt";
 
     // Nên để fileBook và fileUser thay vì để ở hàm main (Đã đổi)
     // Nếu vậy thì phải build lại constructor
@@ -148,5 +151,36 @@ public class Bookstore implements IBookstore {
     @Override
     public List<Book> sortByQuantity() {
         return book.sortByQuantity();
+    }
+    
+    @Override
+    public void addToCart(){
+        try{
+            try{
+                book.addToCart();
+                book.changeProduct();
+            }catch(Exception e){
+                System.out.println("Cannot add to cart, try later");
+            }
+            try {
+                writeBackUp();
+            } catch (Exception ex) {
+                Logger.getLogger(Bookstore.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            updateQuantity();
+        }catch(Exception ex){
+            Logger.getLogger(Bookstore.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Override
+    public void writeBackUp() throws Exception{
+            book.writeBackUp(fileBackUp);
+            
+    }
+    
+    @Override
+    public void updateQuantity() throws Exception{
+            book.writeFileBook(fileBook, book.updateQuantity());
     }
 }

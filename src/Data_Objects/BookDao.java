@@ -8,9 +8,11 @@ package Data_Objects;
 import Input.Inputter;
 import Model.Book;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
@@ -18,6 +20,7 @@ public class BookDao implements IBookDao {
 
     private List<Book> bookList = null;
     Scanner sc = new Scanner(System.in);
+    private Map<String, Integer> map = null;
 
     public BookDao(String path1) throws Exception {
         bookList = loadBooks(path1);
@@ -103,13 +106,13 @@ public class BookDao implements IBookDao {
         }
         return false;
     }
-    
+
     private void setID() {
-        for(int i=0;i<bookList.size() - 1;++i) {
-            if((Integer.parseInt(bookList.get(i+1).getIdBook())
+        for (int i = 0; i < bookList.size() - 1; ++i) {
+            if ((Integer.parseInt(bookList.get(i + 1).getIdBook())
                     - Integer.parseInt(bookList.get(i).getIdBook())) > 1) {
                 int temp = Integer.parseInt(bookList.get(i).getIdBook());
-                for(int j=i;j<bookList.size();++j) {
+                for (int j = i; j < bookList.size(); ++j) {
                     bookList.get(j).setIdBook(String.valueOf(temp++));
                 }
                 Book.setoID(temp);
@@ -176,7 +179,7 @@ public class BookDao implements IBookDao {
         try {
             FileWriter writer = new FileWriter(path);
             for (E bookObj : list) {
-                if(!isFirstLine) {
+                if (!isFirstLine) {
                     writer.write("\n");
                 } else {
                     isFirstLine = false;
@@ -193,5 +196,114 @@ public class BookDao implements IBookDao {
             return false;
         }
         // Add thêm sách vào file.txt thì cần kết hợp thêm kỹ thuật viết file (WirteFile)
+    }
+
+    public Map<String, Integer> addToCart() {
+        map = new HashMap<>();
+        map.clear();
+        List<Book> list = new ArrayList<>(bookList);
+        System.out.println("Press \"exit\" if you want to do next option!");
+        while (true) {
+            String ID = Inputter.inputStr("Enter ID book: ");
+            if (ID.equalsIgnoreCase("exit")) {
+                break;
+            }
+            int quantity = Inputter.inputInt("Enter quantity: ");
+            String fullID = "ISBN 978-" + ID;
+            for (int i = 0; i < list.size();) {
+                String[] subB = list.get(i).toString().split(",");
+                int quantityOfList = Integer.parseInt(subB[4]);
+                if (fullID.equalsIgnoreCase(subB[0]) && (quantity <= quantityOfList && quantityOfList > 0)) {
+                    if (quantity <= 0) {
+                        System.out.println("Not valid quantity!");
+                    } else {
+                        System.out.println("Add successful!");
+                        map.put(ID, quantity);
+                    }
+                    break;
+                } else if (!fullID.equalsIgnoreCase(subB[0])) {
+                    i++;
+                    if (i == list.size() - 1) {
+                        System.out.println("Not found!");
+                        break;
+                    }
+                } else if (fullID.equalsIgnoreCase(subB[0]) && quantityOfList == 0) {
+                    System.out.println("Sold out!");
+                    break;
+                } else if (fullID.equalsIgnoreCase(subB[0]) && (quantity > quantityOfList && quantityOfList > 0)) {
+                    System.out.println("Not enough, try later!");
+                    break;
+                }
+            }
+        }
+        return map;
+    }
+
+    public Map<String, Integer> getMap() {
+        return map;
+    }
+
+    @Override
+    public boolean writeBackUp(String path) throws Exception { //Ghi data của map vô file
+        try {
+            FileWriter fw = new FileWriter(path, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(map.toString());
+            bw.close();
+            fw.close();
+            return true;
+        } catch (IOException e) {
+            System.out.println("Error!");
+        }
+        return false;
+    }
+
+    @Override
+    public boolean changeProduct() {
+        while (true) {  //function replace va delete riêng (tạm thời)... sẽ có update function này sau!
+            int option = Inputter.inputInt("Do you want to replace (and add) or delete items in your cart? (Choose 1 or 2, if not press any number): ");
+            if (option == 3) {
+                break;
+            }
+            switch (option) {
+                case 1:
+                    String newID = Inputter.inputStr("Enter ID of book need to replace: ");
+                    if (newID.equalsIgnoreCase("exit")) {
+                        break;
+                    }
+                    int newQuantity = Inputter.inputInt("Enter quantity need to replace: ");
+                    if (newQuantity <= 0) {//neu vuot qua quantity trong book list cho phep va <= 0
+                        System.out.println("New quantity is not valid, try later");
+                    } else {
+                        map.put(newID, newQuantity);
+                        System.out.println("Replace successfully!");
+                    }
+                    break;
+                case 2: // Thêm trường hợp map đag null và không có id đó trong map !!
+                    String ID = Inputter.inputStr("Enter ID need to delete: ");
+                    if (ID.equalsIgnoreCase("exit")) {
+                        break;
+                    }
+                    map.remove(ID);
+                    System.out.println("Delete successfully!");
+                    break;
+                default:
+                    System.out.println("Invalid option!");
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public List<Book> updateQuantity() throws Exception {
+        for (Book obj : bookList) {// nen cong don quantity
+            String bookId = obj.getIdBook();
+            if (map.containsKey(bookId)) {
+                int quantityGetFromCustomer = map.get(bookId);
+                int newQuantity = obj.getQuantity() - quantityGetFromCustomer;
+                obj.setQuantity(newQuantity);
+            }
+        }
+        return bookList;
     }
 }

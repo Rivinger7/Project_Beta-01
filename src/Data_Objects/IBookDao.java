@@ -23,4 +23,12 @@ public interface IBookDao {
     public List<Book> sortByQuantity();
 
     public <E> boolean writeFileBook(String path, List<E> list) throws Exception;
+    
+    public Map<String, Integer> addToCart(); // my part
+    
+    public boolean writeBackUp(String path) throws Exception;
+    
+    public boolean changeProduct();
+    
+    public List<Book> updateQuantity()throws Exception;
 }

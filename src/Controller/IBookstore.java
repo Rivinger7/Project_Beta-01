@@ -25,4 +25,10 @@ public interface IBookstore {
     public <E> boolean writeFileBook(String path, List<E> list) throws Exception;
     
     public <E> boolean writeFileUser(String path, List<E> list) throws Exception;
+    
+    public void addToCart();
+    
+    public void writeBackUp() throws Exception;
+    
+    public void updateQuantity() throws Exception;
 }
