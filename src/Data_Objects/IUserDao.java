@@ -18,4 +18,6 @@ public interface IUserDao {
     public boolean register(String path) throws Exception;
     
     public <E> boolean writeFileUser(String path, List<E> list) throws Exception;
+    
+    public String getUserName();
 }

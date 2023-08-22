@@ -7,6 +7,7 @@ package Data_Objects;
 
 import Input.Inputter;
 import Model.User;
+import Data_Objects.BookDao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,10 +16,14 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class UserDao implements IUserDao {
+        public UserDao() {
+    }
 
     private List<User> userList = null;
     Scanner sc = new Scanner(System.in);
-
+    private String userName = "";
+    private String password = "";
+    
     public UserDao(String path2) throws Exception {
         userList = loadUsers(path2);
     }
@@ -38,8 +43,8 @@ public class UserDao implements IUserDao {
                     if (userSystem == null) {
                         userSystem = new HashMap<>();
                     }
-                    String userName = split[1].trim();
-                    String password = split[2].trim();
+                     userName = split[1].trim();
+                     password = split[2].trim();
 
                     user = new User(userName, password);
 
@@ -64,8 +69,8 @@ public class UserDao implements IUserDao {
             boolean check = false;
             while (!check) {
                 System.out.println("\nLogin System");
-                String userName = Inputter.inputNonBlankStr("User Name: ");
-                String password = Inputter.inputNonBlankStr("Password: ");
+                 userName = Inputter.inputNonBlankStr("User Name: ");
+                 password = Inputter.inputNonBlankStr("Password: ");
                 for (User obj1 : userList) {
                     if (userName.equals(obj1.getUserName()) && password.equals(obj1.getPassword())) {
                         return true;
@@ -104,8 +109,8 @@ public class UserDao implements IUserDao {
     @Override
     public boolean register(String path) throws Exception {
         System.out.println("\nRegister System");
-        String userName = Inputter.inputNonBlankStr("Username: ");
-        String password = Inputter.inputNonBlankStr("Password: ");
+         userName = Inputter.inputNonBlankStr("Username: ");
+         password = Inputter.inputNonBlankStr("Password: ");
         for (User obj : userList) {
             if (obj.getUserName().equals(userName) && obj.getPassword().equals(password)) {
                 System.out.println("Registeration failed");
@@ -141,4 +146,10 @@ public class UserDao implements IUserDao {
             return false;
         }
     }
+    
+    @Override
+    public String getUserName(){
+        return this.userName;
+    }
+    
 }

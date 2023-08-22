@@ -13,15 +13,18 @@ import Input.Inputter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 public class Bookstore implements IBookstore {
 
     IBookDao book;
     IUserDao user;
+    UserDao userdao = new UserDao() ;
     Scanner sc = new Scanner(System.in);
 
     final String fileBook = "src\\Input\\ListOfBooks.txt";
     final String fileUser = "src\\Input\\ListOfUsers.txt";
     final String fileBackUp = "src\\Output\\BackUpList.txt";
+//    final String userName = user.getUserName();
 
     // Nên để fileBook và fileUser thay vì để ở hàm main (Đã đổi)
     // Nếu vậy thì phải build lại constructor
@@ -153,6 +156,11 @@ public class Bookstore implements IBookstore {
         return book.sortByQuantity();
     }
     
+        @Override
+    public void writeBackUp(String userName) throws Exception{
+            book.writeBackUp(fileBackUp, userName);
+    }
+    
     @Override
     public void addToCart(){
         try{
@@ -163,7 +171,7 @@ public class Bookstore implements IBookstore {
                 System.out.println("Cannot add to cart, try later");
             }
             try {
-                writeBackUp();
+                writeBackUp(user.getUserName());
             } catch (Exception ex) {
                 Logger.getLogger(Bookstore.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -172,12 +180,7 @@ public class Bookstore implements IBookstore {
             Logger.getLogger(Bookstore.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    @Override
-    public void writeBackUp() throws Exception{
-            book.writeBackUp(fileBackUp);
-            
-    }
+
     
     @Override
     public void updateQuantity() throws Exception{

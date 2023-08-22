@@ -43,9 +43,15 @@ public class Main {
                     break;
                 case 3:
                     /* Có nên gộp hết cả 3 vào method addToCart bên bookstore ko? <DONE>
-                       Thêm hiển thị danh sách cốnle ra màn hình cho người dùng nhập ID <NOT YET>
+                       Thêm hiển thị danh sách console ra màn hình cho người dùng nhập ID <NOT YET>
+                       Nên trừ quantity sau khi in hóa đơn <NOT YET>
+                       Mỗi user có một cart riêng <Processing>
                     */
-                    bookstore.addToCart();  
+                    bookstore.addToCart();
+                    break;
+                case 4:
+                    
+                    
                     break;
                 default:
                     System.out.println("Good bye!");

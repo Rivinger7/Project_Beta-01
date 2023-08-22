@@ -26,7 +26,7 @@ public interface IBookDao {
     
     public Map<String, Integer> addToCart(); // my part
     
-    public boolean writeBackUp(String path) throws Exception;
+    public boolean writeBackUp(String path, String userName) throws Exception;
     
     public boolean changeProduct();
     

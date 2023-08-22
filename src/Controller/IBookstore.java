@@ -28,7 +28,7 @@ public interface IBookstore {
     
     public void addToCart();
     
-    public void writeBackUp() throws Exception;
+    public void writeBackUp(String userName) throws Exception;
     
     public void updateQuantity() throws Exception;
 }

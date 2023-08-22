@@ -6,6 +6,7 @@
 package Data_Objects;
 
 import Input.Inputter;
+import Data_Objects.UserDao;
 import Model.Book;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,7 +22,10 @@ public class BookDao implements IBookDao {
     private List<Book> bookList = null;
     Scanner sc = new Scanner(System.in);
     private Map<String, Integer> map = null;
+    private UserDao userdao = new UserDao();
 
+    
+    
     public BookDao(String path1) throws Exception {
         bookList = loadBooks(path1);
     }
@@ -198,6 +202,7 @@ public class BookDao implements IBookDao {
         // Add thêm sách vào file.txt thì cần kết hợp thêm kỹ thuật viết file (WirteFile)
     }
 
+    @Override
     public Map<String, Integer> addToCart() {
         map = new HashMap<>();
         map.clear();
@@ -244,11 +249,16 @@ public class BookDao implements IBookDao {
     }
 
     @Override
-    public boolean writeBackUp(String path) throws Exception { //Ghi data của map vô file
+    public boolean writeBackUp(String path, String userName) throws Exception { //Ghi data của map vô file
+//        String userName1 = userdao.getUserName();
+//        System.out.println(userName1);
+            String userName1 = "hello";
         try {
             FileWriter fw = new FileWriter(path, true);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(map.toString());
+            bw.write(" (" + userName + ")");
+            bw.newLine();
             bw.close();
             fw.close();
             return true;
