@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/My_lab/beta01/Project_Beta-01/src/Input/ListOfBooks.txt</file>
-            <file>file:/E:/My_lab/beta01/Project_Beta-01/src/Data_Objects/IBookDao.java</file>
-            <file>file:/E:/My_lab/beta01/Project_Beta-01/src/Controller/IBookstore.java</file>
-            <file>file:/E:/My_lab/beta01/Project_Beta-01/src/Output/BackUpList.txt</file>
-            <file>file:/E:/My_lab/beta01/Project_Beta-01/src/Input/ListOfUsers.txt</file>
-            <file>file:/E:/My_lab/beta01/Project_Beta-01/src/View/Main.java</file>
-            <file>file:/E:/My_lab/beta01/Project_Beta-01/src/Controller/Bookstore.java</file>
-            <file>file:/E:/My_lab/beta01/Project_Beta-01/src/Data_Objects/BookDao.java</file>
+            <file>file:/F:/java_code/Project_Beta-01/src/Controller/Bookstore.java</file>
+            <file>file:/F:/java_code/Project_Beta-01/src/Input/ListOfBooks.txt</file>
+            <file>file:/F:/java_code/Project_Beta-01/src/Data_Objects/BookDao.java</file>
         </group>
     </open-files>
 </project-private>

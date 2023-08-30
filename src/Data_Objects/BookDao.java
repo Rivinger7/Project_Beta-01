@@ -123,6 +123,22 @@ public class BookDao implements IBookDao {
                 return;
             }
         }
+
+//        boolean check = false;
+//        int temp = 0;
+//        for (int i = 1; i < bookList.size();++i) {
+//            if (((Integer.parseInt(bookList.get(i).getIdBook())
+//                    - Integer.parseInt(bookList.get(i-1).getIdBook())) > 1)
+//                    && !check) {
+//                temp = Integer.parseInt(bookList.get(i-1).getIdBook());
+//                bookList.get(i).setIdBook(String.valueOf(temp+1));
+//                temp += 2;
+//                check = true;
+//            } else if(check) {
+//                bookList.get(i).setIdBook(String.valueOf(temp++));
+//            }
+//        }
+//        Book.setoID(temp);
     }
 
     @Override
